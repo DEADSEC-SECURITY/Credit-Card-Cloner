@@ -5,39 +5,26 @@ import time
 import re
 
 def main():
-
 	global main_input
 
 	os.system('cls' if os.name == 'nt' else 'clear')
-
 	print("What can i do for you:")
 	print("----------------------")
 	print(" 1) View already created info")
 	print(" 2) Read new card")
 	main_input = int(input())
-
 	if main_input == 1:
-
 		credit_read()
-
 	elif main_input == 2:
-
 		folder()
-
 	else:
-
 		print("Plese use only 1 or 2")
-
 		time.sleep(1)
-
 		main()
 
-def folder():	
-
+def folder():
 	os.system('cls' if os.name == 'nt' else 'clear')
-
 	if not os.path.exists("Credit Cards") and not os.path.exists("Other Cards"):
-
 		os.makedirs("Credit Cards")	
 		os.makedirs("Other Cards")	
 
@@ -55,30 +42,24 @@ def folder():
 		time.sleep(1)	
 
 		if os.path.exists("Credit Cards") and os.path.exists("Other Cards"):												
-			os.system('cls' if os.name == 'nt' else 'clear')	
-
-			print("Files created")	
-
+			os.system('cls' if os.name == 'nt' else 'clear')
+			print("Files created")
 			clone_startUP()																														
 		else:																						
-			os.system('cls' if os.name == 'nt' else 'clear')	
-
+			os.system('cls' if os.name == 'nt' else 'clear')
 			print("If this erro continues plz create files manually")
 			print("------------------------------------------------")
 			print("Foulder Names:")
 			print("1 - Creadit Cards")
 			print("2 - Other Cards")
-
 			sys.exit()																	
 	else:	
 		clone_startUP()
 
 def clone_startUP():
-
 	global data
 
 	os.system('cls' if os.name == 'nt' else 'clear')
-
 	print("Please insert a card:")
 	data = input()
 
@@ -88,7 +69,6 @@ def clone_startUP():
 		clone_type()
 
 def clone_type():
-
 	if data[1:2] == "B":
 		os.system('cls' if os.name == 'nt' else 'clear')
 		print("Credit/Debit card detected")
@@ -97,7 +77,6 @@ def clone_type():
 		OtherCard()
 
 def CreditCard():
-
 	global regex
 	global matches
 
@@ -118,7 +97,6 @@ def credit_info():
 	os.system('cls' if os.name == 'nt' else 'clear')
 
 	if matches:
-
 		os.system('cls' if os.name == 'nt' else 'clear')
 
 		print("Raw Code: " + data)
@@ -131,20 +109,15 @@ def credit_info():
 		save_input = input()
 
 		if save_input == "Y":
-
 			fname = matches.group("firstname")
 			lname = matches.group("lastname")
 			num = matches.group("number")
 			fdate = matches.group("firstdate")
 			sdate = matches.group("seconddate")
 			cv = matches.group("cvv")
-
 			if not os.path.exists(f"Credit Cards/{fname}-{lname}"):
-
 				os.makedirs(f"Credit Cards/{fname}-{lname}")
-
 				if os.path.exists(f"Credit Cards/{fname}-{lname}"):
-
 					input_matche_number = open(f"Credit Cards/{fname}-{lname}/Card-Number","wb")
 					pickle.dump(num, input_matche_number)
 
@@ -162,23 +135,18 @@ def credit_info():
 
 					input_matche_cvv = open(f"Credit Cards/{fname}-{lname}/Card-CVV","wb")
 					pickle.dump(cv, input_matche_cvv)
-
 			else:
 				pass
 
 		elif save_input == "y":
-
 			fname = matches.group("firstname")
 			lname = matches.group("lastname")
 			num = matches.group("number")
 			fdate = matches.group("firstdate")
 			sdate = matches.group("seconddate")
 			cv = matches.group("cvv")
-
 			if not os.path.exists(f"Credit Cards/{fname}-{lname}"):
-
 				os.makedirs(f"Credit Cards/{fname}-{lname}")
-
 				if os.path.exists(f"Credit Cards/{fname}-{lname}"):
 
 					input_matche_number = open(f"Credit Cards/{fname}-{lname}/Card-Number","wb")
@@ -203,27 +171,17 @@ def credit_info():
 
 
 		elif save_input == "N":
-
 			sys.exit()
-
 		elif save_input == "n":
-
 			sys.exit()
-
 		else:
-
 			print("Please select a valid option!")
-
 			time.sleep(2)
-
 			credit_info()
-
 	else:
-
 		sys.exit()
 
 def credit_read():
-
 	global read_input
 	global creds_cvv
 	global credit_cvv
@@ -242,27 +200,20 @@ def credit_read():
 	read_input = input()
 
 	if os.path.exists(f"Credit Cards/{read_input}"):
-
 		with open(f"Credit Cards/{read_input}/Card-CVV", "rb") as creds_cvv:
 			credit_cvv = pickle.load(creds_cvv)
-
 		with open(f"Credit Cards/{read_input}/Card-First-Name", "rb") as creds_fname:
 			credit_fname = pickle.load(creds_fname)
-
 		with open(f"Credit Cards/{read_input}/Card-Last-Name", "rb") as creds_lname:
 			credit_lname = pickle.load(creds_lname)
-
 		with open(f"Credit Cards/{read_input}/Card-Number", "rb") as creds_num:
 			credit_num = pickle.load(creds_num)
-
 		with open(f"Credit Cards/{read_input}/Card-First-Date", "rb") as creds_fdate:
 			credit_fdate = pickle.load(creds_fdate)
-
 		with open(f"Credit Cards/{read_input}/Card-Second-Date", "rb") as creds_sdate:
 			credit_sdate = pickle.load(creds_sdate)
 
 		os.system('cls' if os.name == 'nt' else 'clear')
-
 		print("All info that you need is here!")
 		print("-------------------------------")
 		print("Card Number: " + f"{credit_num}")
@@ -270,20 +221,13 @@ def credit_read():
 		print("Expiration Date: " + f"{credit_fdate}" + " | " + f"{credit_sdate}")
 		print("Security Code: " + f"{credit_cvv}")
 		print("-------------------------------")
-
 	else:
-
 		os.system('cls' if os.name == 'nt' else 'clear')
-
 		print("Didn´t find that name if my DataBase")
-
 		time.sleep(2)
-
 		credit_read()
 
-
 	os.system('cls' if os.name == 'nt' else 'clear')
-
 	print("All info that you need is here!")
 	print("-------------------------------")
 	print("Card Number: " + f"{credit_num}")
@@ -291,6 +235,5 @@ def credit_read():
 	print("Expiration Date: " + f"{credit_fdate}" + " | " + f"{credit_sdate}")
 	print("Security Code: " + f"{credit_cvv}")
 	print("-------------------------------")
-
 
 main()
